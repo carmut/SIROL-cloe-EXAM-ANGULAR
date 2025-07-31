@@ -1,0 +1,15 @@
+<h1>Page d'Accueil</h1>
+<section class="container d-flex justify-content-center align-items-center py-5" id="about">
+  <div class="col-lg-8 text-center">
+    <h2 class="fw-bold">À propos de FreezAir</h2>
+    <p class="text-muted">Chez FreezAir, nous nous engageons à offrir des solutions fiables et modernes de ventilation
+      et climatisation pour répondre aux besoins des particuliers et des professionnels.</p>
+    <a routerLink="/entreprise" class="btn btn-primary">En apprendre plus sur l'entreprise</a>
+  </div>
+</section>
+
+<section>
+  <h2>Quelqu'un de nos produits </h2>
+  <!--affichage des cards-->
+  <app-home-cards [items]="items"></app-home-cards>
+</section>
