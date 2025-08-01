@@ -118,7 +118,7 @@ export default class Datas {
           }
         ]);
         observer.complete();
-      }, 2000);
+      }, 0);// delay changer de 2000 à 0 pour les tests :D; todo: remettre le delay à 2000
     });
   }
 

@@ -8,8 +8,9 @@
   </div>
 </section>
 
-<section>
+<section class="container py-5 text-center" >
   <h2>Quelqu'un de nos produits </h2>
   <!--affichage des cards-->
-  <app-home-cards [items]="items"></app-home-cards>
+  <app-home-cards [items]="items" [limit]=3></app-home-cards>
+  <a routerLink="/produits" class="btn btn-primary">Découvrire le reste de nos produits</a>
 </section>
