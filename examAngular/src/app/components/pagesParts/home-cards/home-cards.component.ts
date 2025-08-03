@@ -19,30 +19,51 @@ import {RouterLink} from "@angular/router";
 export class HomeCardsComponent implements OnInit {
   @Input() items!: Observable<any[]>;
   @Input() limit: number = 0;
-  @Input() filter: string = "";
+  @Input() filters!: Array<any>;
 
   datas: Array<any> = [];
 
   ngOnInit(): void {
     this.items.subscribe(item => {
-      //transformation observable => Array
-      for (let data of item) {
-        console.log(data);
-        this.datas.push(data);
-      }
-      //application de filter
-      if (this.filter != "") {
-        let filteredList = [];
-        for (let data of this.datas) {
+      // Transformation Observable => Array
+      this.datas = [...item];
 
-        }
+      // Application des filtres si présents
+      if (this.filters.length !== 0) {
+        const { namefilter, minpricefilter, maxpricefilter, categoriesfilter } = this.filters[0];
+
+        this.datas = this.datas.filter(data => {
+          // Vérifier le nom ou le mot-clé
+          const matchesName = namefilter
+            ? data.title.toLowerCase().includes(namefilter.toLowerCase())
+            : true;
+
+          // Vérifier le prix minimum
+          const matchesPriceMin = minpricefilter
+            ? data.fullPrice >= parseFloat(minpricefilter)
+            : true;
+
+          // Vérifier le prix maximum
+          const matchesPriceMax = maxpricefilter
+            ? data.fullPrice <= parseFloat(maxpricefilter)
+            : true;
+
+          // Vérifier toutes les catégories
+          const matchesCategory = categoriesfilter && categoriesfilter.length
+            ? categoriesfilter.every((category: any) =>
+              data.features.some((feature: { title: any; }) => feature.title === category)
+            )
+            : true;
+
+          // Retourner true uniquement si toutes les conditions sont satisfaites
+          return matchesName && matchesPriceMin && matchesPriceMax && matchesCategory;
+        });
       }
 
-      //application de la limite
+      // Application de la limite si nécessaire
       if (this.limit > 0) {
-        this.datas = this.datas.slice(0, this.limit)
+        this.datas = this.datas.slice(0, this.limit);
       }
-    })
-
+    });
   }
 }

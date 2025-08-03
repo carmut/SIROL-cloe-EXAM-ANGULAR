@@ -1,8 +1,12 @@
 <div class="d-flex justify-content-center">
-  <form action="">
-    <input type="text" name="searchName" placeholder="Rechercher un produit">
-    <input type="number" name="searchPriceMin" placeholder="Prix minimum">
-    <input type="number" name="searchPriceMax" placeholder="Prix maximum">
+  <form
+    class="d-flex w-100 justify-content-evenly"
+    (ngSubmit)="onFormSubmit(searchForm.value)"
+    #searchForm="ngForm"
+  >
+    <input type="text" name="searchName" placeholder="Rechercher un produit" ngModel>
+    <input type="number" name="searchPriceMin" placeholder="Prix minimum" ngModel>
+    <input type="number" name="searchPriceMax" placeholder="Prix maximum" ngModel>
     <div class="dropdown">
       <button
         class="btn btn-secondary dropdown-toggle"
@@ -30,9 +34,8 @@
         </li>
       </ul>
     </div>
+    <button id="filterbtn" class="btn btn-primary" type="submit">Rechercher</button>
   </form>
 </div>
-<p>NIY : form => filter</p>
-
 <h1 class="text-center"><strong>Nos produits</strong></h1>
-<app-home-cards [items]="items"></app-home-cards>
+<app-home-cards [items]="items" [filters]="filters"></app-home-cards>
