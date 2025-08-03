@@ -4,9 +4,34 @@
     (ngSubmit)="onFormSubmit(searchForm.value)"
     #searchForm="ngForm"
   >
-    <input type="text" name="searchName" placeholder="Rechercher un produit" ngModel>
-    <input type="number" name="searchPriceMin" placeholder="Prix minimum" ngModel>
-    <input type="number" name="searchPriceMax" placeholder="Prix maximum" ngModel>
+    <!-- Champ de recherche par nom -->
+    <input
+      type="text"
+      name="searchName"
+      placeholder="Rechercher un produit"
+      ngModel
+      [ngModel]="searchName"
+    />
+
+    <!-- Champ de prix minimum -->
+    <input
+      type="number"
+      name="searchPriceMin"
+      placeholder="Prix minimum"
+      ngModel
+      [ngModel]="searchPriceMin"
+    />
+
+    <!-- Champ de prix maximum -->
+    <input
+      type="number"
+      name="searchPriceMax"
+      placeholder="Prix maximum"
+      ngModel
+      [ngModel]="searchPriceMax"
+    />
+
+    <!-- Sélection des catégories -->
     <div class="dropdown">
       <button
         class="btn btn-secondary dropdown-toggle"
@@ -26,6 +51,7 @@
               [id]="category"
               [value]="category"
               (change)="onCategorySelect($event)"
+              [checked]="selectedCategories.includes(category)"
             />
             <label class="form-check-label" [for]="category">
               {{ category }}
@@ -34,7 +60,21 @@
         </li>
       </ul>
     </div>
-    <button id="filterbtn" class="btn btn-primary" type="submit">Rechercher</button>
+
+    <!-- Bouton pour rechercher -->
+    <button id="filterbtn" class="btn btn-primary" type="submit">
+      Rechercher
+    </button>
+
+    <!-- Bouton pour réinitialiser -->
+    <button
+      id="resetbtn"
+      class="btn btn-secondary"
+      type="button"
+      (click)="onReset()"
+    >
+      Réinitialiser
+    </button>
   </form>
 </div>
 <h1 class="text-center"><strong>Nos produits</strong></h1>

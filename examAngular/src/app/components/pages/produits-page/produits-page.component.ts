@@ -97,7 +97,6 @@ export class ProduitsPageComponent implements OnInit {
     }
   }
 
-  //construction URL
   onFormSubmit(formValues: any): void {
     const params: { [key: string]: string | string[] } = {};
 
@@ -125,5 +124,9 @@ export class ProduitsPageComponent implements OnInit {
     window.location.href = url.toString();
   }
 
+
+  onReset(): void {
+    window.location.href = window.location.origin + window.location.pathname;
+  }
 
 }
