@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {DecimalPipe, NgForOf, NgIf, PercentPipe} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import Panier from '../../classes/panier'; // Assurez-vous d'importer la classe Panier
 
 @Component({
   selector: 'app-home-cards',
@@ -19,11 +20,15 @@ import {RouterLink} from "@angular/router";
 export class HomeCardsComponent implements OnInit {
   @Input() items!: Observable<any[]>;
   @Input() limit: number = 0;
-  @Input() filters!: Array<any>;
+  @Input() filters: Array<any> = [];
 
   datas: Array<any> = [];
+  isLoading: boolean = true;
 
   ngOnInit(): void {
+    //activation du loader
+    this.isLoading = true;
+
     this.items.subscribe(item => {
       // Transformation Observable => Array
       this.datas = [...item];
@@ -64,6 +69,15 @@ export class HomeCardsComponent implements OnInit {
       if (this.limit > 0) {
         this.datas = this.datas.slice(0, this.limit);
       }
+
+      //desactivation du loader une fois la page ready
+      this.isLoading = false;
+
     });
+  }
+
+  // Fonction pour ajouter au panier
+  addToCart(product: any): void {
+    Panier.addProductToCart(product);
   }
 }

@@ -1,1 +1,57 @@
-<p>produit-detail-page works!</p>
+<div class="container my-5">
+
+  <!-- LOADER -->
+  <div *ngIf="isLoading" class="text-center loader-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- SECTION POUR LES DÉTAILS DU PRODUITS. S'AFFICHE UNIQUEMENT SI NON EN CHARGEMENT -->
+  <div *ngIf="!isLoading">
+    <!-- TITRE -->
+    <h1 class="mb-4">{{ item.title }}</h1> <!-- erreur dans la console cannot read property 'title' of undefined, le titre s'affiche correctement todo: regarder de plus prêt et corriger -->
+
+    <div class="row">
+      <!-- IMAGE DU PRODUIT -->
+      <div class="col-md-6 text-center">
+        <img [src]="item.image" [alt]="item.title" class="img-fluid rounded" />
+      </div>
+
+      <!-- DETAILS DU PRODUIT -->
+      <div class="col-md-6">
+        <h2>Description</h2>
+        <p>{{ item.description }}</p>
+
+        <h3>Prix</h3>
+        <p *ngIf="item.discountPercent === 0">
+          <strong>{{ item.fullPrice | currency: 'EUR' }}</strong>
+        </p>
+        <p *ngIf="item.discountPercent > 0">
+          <strong>
+            <span class="text-danger">{{ item.fullPrice | currency: 'EUR' }}</span>
+            <br> Remise : -{{ item.discountPercent | percent }}<br>
+            <span class="text-success">
+              {{ item.fullPrice - (item.fullPrice * item.discountPercent) | number: '1.2-2' }} €
+            </span>
+          </strong>
+        </p>
+
+        <h3>Catégorie</h3>
+        <p>{{ item.category }}</p>
+
+        <h3>Caractéristiques</h3>
+        <ul>
+          <li *ngFor="let feature of item.features">
+            <strong>{{ feature.title }} :</strong> {{ feature.description }}
+          </li>
+        </ul>
+        <!-- (click)="addToCart(item)" -->
+        <button class="btn btn-primary mt-3" (click)="addToCart(item)">
+          Ajouter au panier
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

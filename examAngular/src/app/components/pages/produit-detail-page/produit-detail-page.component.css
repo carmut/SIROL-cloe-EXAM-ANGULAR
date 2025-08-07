@@ -1,0 +1,15 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Ajuster selon vos besoins */
+}
+
+.img-fluid {
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.text-danger {
+  text-decoration: line-through;
+}

@@ -1,0 +1,57 @@
+<div class="container my-5">
+  <h1 class="text-center mb-4">Votre Panier</h1>
+
+  <!-- Message si le panier est vide -->
+  <div *ngIf="panier.length === 0" class="alert alert-info text-center">
+    Votre panier est vide.
+  </div>
+
+  <!-- Liste des produits -->
+  <div *ngIf="panier.length > 0">
+    <table class="table table-striped align-middle">
+      <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Produit</th>
+        <th scope="col">Prix Unitaire</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix Total</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of panier">
+        <td>
+          <img [src]="product.image" [alt]="product.title" class="img-thumbnail" style="max-width: 100px;">
+        </td>
+        <td>{{ product.title }}</td>
+        <td>
+            <span *ngIf="product.discountPercent > 0" class="text-danger text-decoration-line-through">
+              {{ product.fullPrice | currency: 'EUR' }}
+            </span>
+          <span class="text-success">
+              {{ product.fullPrice - (product.fullPrice * (product.discountPercent || 0)) | number: '1.2-2' }} €
+            </span>
+        </td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          {{ (product.fullPrice - (product.fullPrice * (product.discountPercent || 0))) * product.quantity | number: '1.2-2' }} €
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="removeFromPanier(product.id)">Supprimer</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Total -->
+    <div class="text-end fs-4">
+      <strong>Total :</strong> {{ total | number: '1.2-2' }} €
+    </div>
+
+    <!-- Bouton pour vider le panier -->
+    <div class="text-end mt-3">
+      <button class="btn btn-outline-danger" (click)="clearPanier()">Vider le panier</button>
+    </div>
+  </div>
+</div>

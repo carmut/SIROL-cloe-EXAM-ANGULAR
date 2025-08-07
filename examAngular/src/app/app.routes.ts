@@ -4,6 +4,7 @@ import {ProduitsPageComponent} from "./components/pages/produits-page/produits-p
 import {EntreprisePageComponent} from "./components/pages/entreprise-page/entreprise-page.component";
 import {ProduitDetailPageComponent} from "./components/pages/produit-detail-page/produit-detail-page.component";
 import {ContactPageComponent} from "./components/pages/contact-page/contact-page.component";
+import {PanierPageComponent} from "./components/pages/panier-page/panier-page.component";
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'entreprise', component: EntreprisePageComponent},
   { path: 'produit/:id', component: ProduitDetailPageComponent},
   { path: 'contact', component: ContactPageComponent},
+  { path: 'panier', component: PanierPageComponent },
   { path: '**', redirectTo: ''}
 ];
